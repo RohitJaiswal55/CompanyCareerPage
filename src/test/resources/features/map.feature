@@ -5,7 +5,8 @@ Feature: Feature to test company carrer page functionality
   Given I launch company career page 
 
   @smoke
-  Scenario: Verify Professionals career page launch when user click Professionals career type 
+  @XRAY-001
+  Scenario: XRAY-001 Verify Professionals career page launch when user click Professionals career type 
   When I click required type company career page
   |careerType|
   |Professionals|
@@ -15,7 +16,8 @@ Feature: Feature to test company carrer page functionality
   
   
   @smoke
-  Scenario: Verify Professionals career page launch when user click Students and Graduates career type
+  @XRAY-002
+  Scenario: XRAY-002 Verify Professionals career page launch when user click Students and Graduates career type
   When I click required type company career page
   |careerType|
   |Students and Graduates|
@@ -25,7 +27,8 @@ Feature: Feature to test company carrer page functionality
   
   
    @smoke
-  Scenario: Verify dropdown of what is your availability field
+   @XRAY-003
+  Scenario: XRAY-003 Verify dropdown of what is your availability field
   When I click required type company career page
   |careerType|
   |Professionals|
@@ -34,7 +37,8 @@ Feature: Feature to test company carrer page functionality
   | Part time          |
   
   @Sanity 
-  Scenario: Verify dropdown of Corporate title field
+  @XRAY-004
+  Scenario: XRAY-004 Verify dropdown of Corporate title field
   When I click required type company career page
   |careerType|
   |Professionals|
@@ -49,7 +53,8 @@ Feature: Feature to test company carrer page functionality
 	|Vice President |
 	
   @Sanity 
-  Scenario: Verify when user enter wrong type job, no job should be appear
+  @XRAY-005
+  Scenario: XRAY-005 Verify when user enter wrong type job, no job should be appear
   And I click required type company career page
   |careerType|
   |Professionals|
@@ -60,7 +65,8 @@ Feature: Feature to test company carrer page functionality
  	 |0|
   
   @Sanity 
-  Scenario: Verify when user enter job keyword, then relevant job should display
+  @XRAY-006
+  Scenario: XRAY-006 Verify when user enter job keyword, then relevant job should display
   When I click required type company career page
   |careerType|
   |Professionals|
@@ -72,7 +78,8 @@ Feature: Feature to test company carrer page functionality
   |Manager|
   
   @Sanity 
-  Scenario: Verify if user enter job id, same job id job should be display
+  @XRAY-007
+  Scenario: XRAY-007 Verify if user enter job id, same job id job should be display
   When I click required type company career page
   |careerType|
   |Professionals|
