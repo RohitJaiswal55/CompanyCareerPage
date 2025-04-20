@@ -214,5 +214,4 @@ public class CareerHelper {
 		softAssert.assertEquals(actJobId, expJobId);
 		softAssert.assertAll();
 	}
-
 }
