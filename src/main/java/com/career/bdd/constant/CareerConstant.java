@@ -8,5 +8,7 @@ public class CareerConstant {
 	public static final String WHAT_IS_YOUR_AVAIABILITY = "what is your availability";
 	public static final String WEBDRIVER = "WebDriver";
 	public static final String CHROME = "chrome";
+	
+	
 
 }

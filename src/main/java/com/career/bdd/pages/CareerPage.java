@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
 import com.career.bdd.constant.CareerConstant;
 import com.career.bdd.utils.BaseClass;
 
@@ -55,10 +59,20 @@ public class CareerPage extends BaseClass {
 	@FindBy(xpath = "//div[@id='headerbox']/table/descendant::td/strong[contains(text(),'Job ID:')]/..")
 	private WebElement jobIDText;
 	
+	@FindBy(xpath = "//div[@id='vs2__combobox']") 
+	private WebElement countryDropDown;
+
+	@FindBy(xpath = "//div[@id='vs2__combobox']/div[@class='vs__selected-options']/input") 
+	private WebElement countrySearchInput;
+	
+	@FindBy(xpath = "//div[@class='detail-entry']") 
+	private List<WebElement> jobDetailsHeading;
+	
+	@FindBy(xpath = "//button[contains(text(),' Load more ')]")
+	private WebElement loadMoreButton;
+	
 	CareerConstant careerConstant;
 
-	
-	
 	/**
 	 * Description : Method to accept cookies dialog box.
 	 * @throws InterruptedException
@@ -104,6 +118,7 @@ public class CareerPage extends BaseClass {
 	/**
 	 * Description : Method to return title of page.
 	 * @throws InterruptedException
+	 * @return pageTitle
 	 */
 	public String getCareerPageTitle() throws InterruptedException {
 		waitForElement(driver, filterSection);
@@ -125,6 +140,7 @@ public class CareerPage extends BaseClass {
 	/**
 	 * Description : Method to return Dropdown Options.
 	 * @throws InterruptedException
+	 * @return optionTexts
 	 */
 	public List<String> getDropdownOptions() throws InterruptedException {
 
@@ -173,6 +189,7 @@ public class CareerPage extends BaseClass {
 	/**
 	 * Description : Method to return Total No Job displayed after click search button.
 	 * @throws InterruptedException
+	 * @return actualjobNoDisplayedAfterClickSearch
 	 */
 	public String getTotalNoJobAfterClickSearchButton() throws InterruptedException {
 		waitForElement(driver, showingResultsLabel);
@@ -186,6 +203,7 @@ public class CareerPage extends BaseClass {
 	/**
 	 * Description : Method to return no of results before click search button.
 	 * @throws InterruptedException
+	 * @return actualjobNoDisplayedBeforeClickSearch
 	 */
 	public String getTotalNoJobBeforeClickSearchButton() throws InterruptedException {
 		waitForElement(driver, jobSearchTextBox);
@@ -199,6 +217,7 @@ public class CareerPage extends BaseClass {
 	/**
 	 * Description :  Method to return all job results displayed.
 	 * @throws InterruptedException
+	 * @return jobResultsList
 	 */
 	public List<String> getAllSearchedJobResults() throws InterruptedException {
 		waitForElement(driver, showingResultsLabel);
@@ -224,13 +243,69 @@ public class CareerPage extends BaseClass {
 	/**
 	 * Description : Method to return job id.
 	 * @throws InterruptedException
+	 * @return jobId
 	 */
 	public String getJobId() throws InterruptedException {
 		waitForElement(driver, jobIDText);
 		String jobId = jobIDText.getText().trim();
 		System.out.println("jobId-->"+jobId);
 		return jobId;
-
 	}
+	
+	/**
+	 * Description : Method to select country.
+	 * @throws InterruptedException
+	 */
+	public void selectCountry(String country) throws InterruptedException {
+		scrollToElement(driver, countryDropDown);
+		waitForElement(driver, countryDropDown);
+		countrySearchInput.click();
+		countrySearchInput.sendKeys(country);
+		Actions actions = new Actions(driver);
+		actions.sendKeys(Keys.ENTER).perform();
+	}
+	
+	/**
+	 * Description :Method that returns all cities where jobs are listed.
+	 * @throws InterruptedException
+	 * @return listedCitiesList
+	 */
+	public List<String> getAllDisplayedCities() throws InterruptedException {
+		waitForElement(driver, showingResultsLabel);
+		scrollToElement(driver, showingResultsLabel);
+		List<WebElement> listedCities = driver.findElements(By.xpath("//div[@class='detail-entry']/div"));
+		List<String> listedCitiesList = new ArrayList<>();
+		for (WebElement city : listedCities) {
+			
+			listedCitiesList.add(city.getText().replace("Location:", "").trim());
+		}
+
+		return listedCitiesList;
+	}
+	
+	/**
+	 * Description : Method to return no of jobs.
+	 * @throws InterruptedException
+	 * @return noOfJobs
+	 */
+	public int getNoOfJobs() throws InterruptedException {
+		waitForElement(driver, showingResultsLabel);
+		System.out.println("--------------");
+		System.out.println(jobDetailsHeading.size());
+		return jobDetailsHeading.size();
+	}
+	
+	/**
+	 * Description : Method to click more button.
+	 * @throws InterruptedException
+	 */
+	public void clickLoadMore() throws InterruptedException {
+		waitForElement(driver, loadMoreButton);
+		scrollToElement(driver, loadMoreButton);
+		loadMoreButton.click();
+//		waitForPageToLoad(driver);
+		Thread.sleep(3000);
+	}
+
 	
 }

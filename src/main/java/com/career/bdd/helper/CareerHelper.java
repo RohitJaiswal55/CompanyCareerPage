@@ -2,6 +2,8 @@ package com.career.bdd.helper;
 
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -214,5 +216,55 @@ public class CareerHelper {
 		softAssert.assertEquals(actJobId, expJobId);
 		softAssert.assertAll();
 	}
+	
+	/**
+	 * Description : Method to select country from dropdown.
+	 * @param country
+	 * @throws InterruptedException
+	 */
+	public void selectCountryInDropdown(String country) throws InterruptedException {
+		careerPage.selectCountry(country);
+	}
+	
+	/**
+	 * Description: Method to verify only expected cities are shown (extra cities not allowed, missing ones are okay).
+	 * @param expectedCitiesList List of valid cities
+	 * @throws InterruptedException
+	 */
+	public void verifyCountryCitiesJobsAreListed(List<String> expectedCitiesList) throws InterruptedException {
+	    List<String> actualCityList = careerPage.getAllDisplayedCities();
 
+	    Set<String> expectedCities = expectedCitiesList.stream()
+	        .map(String::toLowerCase)
+	        .collect(Collectors.toSet());
+
+	    for (String actualCity : actualCityList) {
+	        if (!expectedCities.contains(actualCity.toLowerCase())) {
+	            throw new AssertionError("Unexpected city found: " + actualCity);
+	        }
+	    }
+	}
+	
+	/**
+	 * Description : Method to verify no of jobs displayed.
+	 * @param noOfJobs
+	 * @throws InterruptedException
+	 */
+	public void verifyNoOfJobsDisplayed(Integer expectedNoOfJobs) throws InterruptedException {
+		int actualnoOfJobs= careerPage.getNoOfJobs();
+		softAssert.assertEquals(actualnoOfJobs, expectedNoOfJobs);
+		softAssert.assertAll();
+	}
+	
+	/**
+	 * Description : Method to click load more button.
+	 * @throws InterruptedException
+	 */
+	public void clickLoadMoreButton() throws InterruptedException {
+		careerPage.clickLoadMore();
+	}
+
+
+		
+	
 }
