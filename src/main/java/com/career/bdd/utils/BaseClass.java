@@ -57,7 +57,6 @@ public class BaseClass {
 	            wait.until((ExpectedCondition<Boolean>) wd ->
 	                ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
 	        }
-
 	    }
 
 
