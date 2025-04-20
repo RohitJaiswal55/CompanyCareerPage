@@ -14,6 +14,7 @@ import io.cucumber.java.en.When;
 public class CompanyCareerSteps {
 	private CareerHelper careerHelper;
 	CareerConstant careerConstant;
+	
 
 	public CompanyCareerSteps() {
 		this.careerHelper = Hooks.getCareerHelper(); // Getting initialized helper
@@ -137,8 +138,49 @@ public class CompanyCareerSteps {
 	public void i_verify_mentioned_jod_id_displayed(DataTable jobIDs) throws InterruptedException {
 		List<String> jobID = jobIDs.asList(String.class);
 		careerHelper.verifyJobId(jobID.get(careerConstant.ZERO));
-		
 	}
-
+	
+	/**
+	 * Description : Method to select country from dropdown.
+	 * @param country
+	 * @throws InterruptedException
+	 */
+	@When("I select {string} as a country in dropdown")
+	public void i_select_country_in_dropdown(String country) throws InterruptedException {
+		careerHelper.selectCountryInDropdown(country);
+	}
+	
+	/**
+	 * Description : Method to verify only chosen country jobs are listed.
+	 * @param expectedCities
+	 * @param countryName
+	 * @throws InterruptedException
+	 */
+	@Then("I verify only {string} cities jobs are listed") 
+	public void i_verify_only_indians_cities_jobs_are_listed(String country, DataTable expectedCities) throws InterruptedException {
+		 List<String> expectedCitiesOptions = expectedCities.asList();
+		 careerHelper.verifyCountryCitiesJobsAreListed(expectedCitiesOptions);
+	}
+	
+	/**
+	 * Description : Method to verify no of jobs displayed.
+	 * @param noOfJobsDisplayed
+	 * @throws InterruptedException
+	 */
+	@When("I verify mentioned no of  jobs displayed")
+	public void i_verify_mentioned_no_of_jobs_displayed(DataTable noOfJobsDisplayed) throws InterruptedException {
+		List<String> noOfJobsList = noOfJobsDisplayed.asList(String.class);
+		 int noOfJobs = Integer.parseInt(noOfJobsList.get(CareerConstant.ONE));
+		careerHelper.verifyNoOfJobsDisplayed(noOfJobs);
+	}
+	
+	/**
+	 * Description : Method to click load more button.
+	 * @throws InterruptedException
+	 */
+	@And("I click load more buttton")
+	public void i_click_load_more_button() throws InterruptedException {
+		careerHelper.clickLoadMoreButton();
+	}
 
 }

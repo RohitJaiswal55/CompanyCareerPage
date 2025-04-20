@@ -2,6 +2,7 @@ package com.career.bdd.utils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
@@ -49,6 +50,12 @@ public class BaseClass {
 	        public void scrollToElement(WebDriver driver, WebElement element) {
 	            JavascriptExecutor js = (JavascriptExecutor) driver;
 	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+	        }
+	        
+	        public void waitForPageToLoad(WebDriver driver) {
+	            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+	            wait.until((ExpectedCondition<Boolean>) wd ->
+	                ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
 	        }
 
 	    }
