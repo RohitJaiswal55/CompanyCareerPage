@@ -85,7 +85,7 @@ public class CareerHelper {
 		
 		try {
 		    careerPage.clickAcceptButton();
-		} finally {
+		} catch (Exception e) {
 		    System.out.println("pop not appeared");
 		}
 
@@ -125,7 +125,7 @@ public class CareerHelper {
 			}
 		}
 
-		System.out.println("✅ All expected availability options verified successfully.");
+		System.out.println("All expected availability options verified successfully.");
 	}
 	
 	/**

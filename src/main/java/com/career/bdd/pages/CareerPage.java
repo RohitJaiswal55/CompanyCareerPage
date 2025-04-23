@@ -133,7 +133,7 @@ public class CareerPage extends BaseClass {
 	 */
 	public void clickAvailabilityDropdownOptions() throws InterruptedException {
 		waitForElement(driver, availabilityDropDown);
-		scrollToElement(driver, lifeAtDeutscheBankLabel);
+		scrollToElement(driver, availabilityDropDown);
 		availabilityDropDown.click();
 	}
 	

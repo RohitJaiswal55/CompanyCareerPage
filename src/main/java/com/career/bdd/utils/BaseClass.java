@@ -9,8 +9,6 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 public class BaseClass {
 	
-	
-
 	    /**
 	     * Description: Waits for the element to be visible and clickable.
 	     * @param driver The WebDriver instance.
@@ -31,7 +29,7 @@ public class BaseClass {
 	     * Overloaded version with default 15 seconds timeout.
 	     */
 	    public void waitForElement(WebDriver driver, WebElement element) {
-	        waitForElement(driver, element, 10);
+	        waitForElement(driver, element, 15);
 	    }
 	    
 	    /**
@@ -49,7 +47,8 @@ public class BaseClass {
 		     */
 	        public void scrollToElement(WebDriver driver, WebElement element) {
 	            JavascriptExecutor js = (JavascriptExecutor) driver;
-	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+//	            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+	            js.executeScript("arguments[0].scrollIntoView(true);", element);
 	        }
 	        
 	        public void waitForPageToLoad(WebDriver driver) {
